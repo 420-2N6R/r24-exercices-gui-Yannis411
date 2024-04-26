@@ -17,15 +17,72 @@ prix_total = 0
 
 #  VOIR ÉNONCÉ
 def ajouter_smarin():
-    pass
+    prix = 0
+    global prix_total
+    global ta_commande
+    choix_du_smarin = choix_smarin.get()
+    choix_grandeur = size_smarin.get()
+    choix_chk = chk_smarin.get()
+    if choix_chk == '1':
+        if choix_grandeur == '10':
+            if choix_du_smarin == 'steak' or 'pepperoni':
+                prix += 14.99
+                ta_commande += f"{choix_du_smarin}{choix_grandeur}p {prix}"
+            else:
+                prix += 15.99
+                ta_commande += f"{choix_du_smarin}{choix_grandeur}p :{prix}"
+        elif choix_grandeur >= '14':
+            if choix_du_smarin == 'steak' or 'pepperoni':
+                prix += 16.99
+                ta_commande += f"{choix_du_smarin}{choix_grandeur}p {prix}"
+            else:
+                prix += 17.99
+                ta_commande += f"{choix_du_smarin}{choix_grandeur}p {prix}"
+    prix_total = prix
+
 
 #  VOIR ÉNONCÉ               
 def ajouter_pizza():
-    pass
+    prix = 0
+    global prix_total
+    global ta_commande
+    choix_de_la_pizza = choix_pizza.get()
+    choix_grandeur = size_pizza.get()
+    choix_chk = chk_pizza.get()
+    if choix_chk == '1':
+        if choix_grandeur == 7:
+            if choix_de_la_pizza == 'nature':
+                prix += 14.99
+                ta_commande += f"{choix_de_la_pizza}{choix_grandeur}{prix_total}"
+            elif choix_de_la_pizza == 'vegetarienne':
+                prix += 14.99
+                ta_commande += f"{choix_de_la_pizza}{choix_grandeur}{prix_total}"
+            else:
+                prix += 16.99
+                ta_commande += f"{choix_de_la_pizza}{choix_grandeur}{prix_total}"
+        else:
+            if choix_de_la_pizza == 'nature':
+                prix += 14.99
+                ta_commande += f"{choix_de_la_pizza}{choix_grandeur}{prix_total}"
+            elif choix_de_la_pizza == 'vegetarienne':
+                prix += 14.99
+                ta_commande += f"{choix_de_la_pizza}{choix_grandeur}{prix_total}"
+            else:
+                prix += 16.99
+                ta_commande += f"{choix_de_la_pizza}{choix_grandeur}{prix_total}"
+    prix_total = prix
 
 #  VOIR ÉNONCÉ               
 def ajouter():
-    pass
+    #btn_voir_ajout_pizza
+    #btn_voir_ajout_smarin
+    global ta_commande
+    global prix_total
+
+    smarin_commande = ajouter_smarin()
+    pizza_commande = ajouter_pizza()
+    displayBox.delete("0.0","end")
+    displayBox.insert("0.0", f"{ta_commande} Pour un total de : {smarin_commande}{pizza_commande}")
 
     
 window.rowconfigure((0,1,2,3), weight=1, minsize=150)
@@ -84,7 +141,7 @@ smarin14po = ttk.Radiobutton(frm_smarin_choix, text='14"', variable=size_smarin,
 smarin10po.grid(row=5, column=0,padx=2,pady=2,sticky="w")
 smarin14po.grid(row=6, column=0,padx=2,sticky="w")
 
-btn_voir_ajout_smarin = ttk.Button(frm_sousmarin, text="Ajouter")
+btn_voir_ajout_smarin = ttk.Button(frm_sousmarin,command=ajouter, text="Ajouter")
 btn_voir_ajout_smarin.grid(column=2, row=3, sticky='w') 
 
 
@@ -133,7 +190,7 @@ pizza14po = ttk.Radiobutton(frm_pizza_choix, text='14"', variable=size_pizza, va
 pizza7po.grid(row=5, column=0,padx=2,pady=2,sticky="w")
 pizza14po.grid(row=6, column=0,padx=2,sticky="w")
 
-btn_voir_ajout_pizza = ttk.Button(frm_pizza, text="Ajouter")
+btn_voir_ajout_pizza = ttk.Button(frm_pizza, command=ajouter, text="Ajouter")
 btn_voir_ajout_pizza.grid(column=2, row=3, sticky='w') 
 
 
